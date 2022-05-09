@@ -4,14 +4,11 @@ you loose the value of slideIndex so it will never advance through the
 slides. Therefore, I use var so I do not loose the value of the slideIndex,
 because once is declared you can modify its value and it will work.
 */
-
 var slideIndex = 0;
 
 let advanceSlides = (parameterSlide) => {
-    //alert("lleg" + slideIndex);
     slideIndex += parameterSlide;
     showSlides(slideIndex);
-    //alert("sal" + slideIndex);
 };
 
 let showSlides = () => {

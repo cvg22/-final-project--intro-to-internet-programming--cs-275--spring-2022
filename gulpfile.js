@@ -10,73 +10,74 @@ browserSync = require(`browser-sync`),
 reload = browserSync.reload;
 
 let validateHTML = () => {
-        return src(`*.html`).pipe(htmlValidator())
-        .pipe(dest(`temp`));
-    };
+    return src(`*.html`).pipe(htmlValidator())
+    .pipe(dest(`temp`));
+};
 
 let compressHTML = () => {
-   return src(`*.html`)
-       .pipe(htmlCompressor({collapseWhitespace: true}))
-       .pipe(dest(`prod`));
-     };
+    return src(`*.html`)
+    .pipe(htmlCompressor({collapseWhitespace: true}))
+    .pipe(dest(`prod`));
+};
 
 let lintCSS = () => {
      return src(`css/style.css`)
-         .pipe(CSSLinter({
-             failAfterError: false,
-             reporters: [
-                 {formatter: `string`, console: true}
-             ]
-         }))
-         .pipe(dest(`temp/css`));
+     .pipe(CSSLinter({
+         failAfterError: false,
+         reporters: [
+             {formatter: `string`, console: true}
+         ]
+     }))
+     .pipe(dest(`temp/css`));
  };
 
  let compressCSS = () => {
-       return src('css/*.css')
-         .pipe(cleanCSS({compatibility: 'ie8'}))
-         .pipe(dest('prod/css'));
+     return src('css/*.css')
+     .pipe(cleanCSS({compatibility: 'ie8'}))
+     .pipe(dest('prod/css'));
 };
 
 let lintJS = () => {
     return src(`js/*.js`)
-        .pipe(jsLinter())
-        .pipe(jsLinter.formatEach(`compact`));
+    .pipe(jsLinter())
+    .pipe(jsLinter.formatEach(`compact`));
 };
 
 let transpileJSForDev = () => {
-     return src(`js/*.js`)
-       .pipe(babel())
-         .pipe(jsCompressor())
-       .pipe(dest(`temp/js`));
+    return src(`js/*.js`)
+    .pipe(babel())
+     .pipe(jsCompressor())
+    .pipe(dest(`temp/js`));
 };
 
 let transpileJSForProd = () => {
-         return src(`js/*.js`)
-             .pipe(babel())
-     	      .pipe(jsCompressor())
-             .pipe(dest(`prod/js`));
+    return src(`js/*.js`)
+    .pipe(babel())
+    .pipe(jsCompressor())
+    .pipe(dest(`prod/js`));
  };
 
- let browserChoice = `default`;
- let serve = () => {
-         browserSync({
-             notify: true,
-             browser: browserChoice,
-             reloadDelay: 5000,
-             server: {
-                 baseDir: `temp`
-             }
-         });
+let browserChoice = `default`;
 
-         watch(`js/*.js`, series(lintJS, transpileJSForDev))
-             .on(`change`, reload);
+let serve = () => {
+     browserSync({
+         notify: true,
+         browser: browserChoice,
+         reloadDelay: 5000,
+         server: {
+             baseDir: `temp`
+         }
+     });
 
-         watch(`css/*.css`, lintCSS)
-             .on(`change`, reload);
+     watch(`js/*.js`, series(lintJS, transpileJSForDev))
+         .on(`change`, reload);
 
-         watch(`html/*.html`, validateHTML)
-             .on(`change`, reload);
-     };
+     watch(`css/*.css`, lintCSS)
+         .on(`change`, reload);
+
+     watch(`*.html`, validateHTML)
+         .on(`change`, reload);
+};
 
 
 

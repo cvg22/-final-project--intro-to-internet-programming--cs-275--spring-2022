@@ -57,6 +57,11 @@ let transpileJSForProd = () => {
     .pipe(dest(`prod/js`));
  };
 
+ let imageForProd = () => {
+     return src(`img/*`)
+     .pipe(dest(`prod/img`));
+ };
+
 let browserChoice = `default`;
 
 let serve = () => {
@@ -79,8 +84,6 @@ let serve = () => {
          .on(`change`, reload);
 };
 
-
-
 exports.validateHTML = validateHTML;
 exports.compressHTML = compressHTML;
 exports.lintCSS = lintCSS;
@@ -88,6 +91,7 @@ exports.compressCSS = compressCSS;
 exports.lintJS = lintJS;
 exports.transpileJSForDev = transpileJSForDev;
 exports.transpileJSForProd = transpileJSForProd;
+exports.imageForProd = imageForProd;
 exports.serve = series(
     validateHTML,
     lintCSS,
@@ -98,4 +102,6 @@ exports.serve = series(
 exports.build = series(
     compressHTML,
     compressCSS,
-    transpileJSForProd);
+    transpileJSForProd,
+    imageForProd
+);

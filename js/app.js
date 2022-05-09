@@ -9,7 +9,20 @@ let advanceSlides = (parameterSlide) => {
 
 let showSlides = () => {
     let slides = document.getElementsByClassName(`slide`);
-    alert("sal" + slideIndex);
+
+    if (slideIndex === 0) {
+        document.getElementById(`prev`).style.display = `none`;
+    }
+
+    else if (slideIndex === slides.length-1) {
+        document.getElementById(`next`).style.display = `none`;
+    }
+
+    else if (slideIndex > 0) {
+        document.getElementById(`prev`).style.display = `block`;
+        document.getElementById(`next`).style.display = `block`;
+    }
+
     if (slideIndex > slides.length - 1) {
         slideIndex = slides.length - 1;
     }
@@ -22,4 +35,5 @@ let showSlides = () => {
     slides[slideIndex].style.display = `block`;
 };
 
+document.getElementById(`prev`).style.display = `none`;
 showSlides(slideIndex);

@@ -17,10 +17,7 @@
   width: 210px;
   height: 250px;
   float: left;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  padding-left: 18px;
-  padding-right: 18px;
+  padding: 15px 18px;
 }
 
 .text {
@@ -60,6 +57,5 @@ h1 {
 h2 {
   font-size: 1.125em;
   font-style: italic;
-  font-weight: bold;
-
+  font-weight: 800;
 }

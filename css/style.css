@@ -1,3 +1,52 @@
-.slides {
-  display: show;
+.carousel {
+  width: 540px;
+  height: 290px;
+  margin: auto;
+  position: relative;
+  background: #e3e3e3;
+}
+
+.slide {
+  width: 460px;
+  height: 290px;
+  background: #f1f1f1;
+  margin-left: 40px;
+}
+
+.images {
+  width: 210px;
+  height: 250px;
+  float: left;
+  padding-top: 20px;
+  padding-left: 20px;
+}
+
+.text {
+  width: 190px;
+  height: 250px;
+  float: right;
+  padding-right: 20px;
+  padding-top: 10px;
+}
+
+.previous {
+  cursor: pointer;
+  position: absolute;
+  top: 145px;
+  width: 16px;
+  margin-top: -22px;
+  user-select: none;
+  left: 0;
+  background: white;
+}
+
+.next {
+  cursor: pointer;
+  position: absolute;
+  top: 145px;
+  width: 16px;
+  margin-top: -22px;
+  user-select: none;
+  right: 0;
+  background: white;
 }
